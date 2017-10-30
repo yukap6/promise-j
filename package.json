@@ -1,0 +1,15 @@
+{
+  "name": "promise-j",
+  "version": "0.1.0",
+  "description": "an promise polyfill for browser which has no promise",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    "promise",
+    "promise/j"
+  ],
+  "author": "yukap",
+  "license": "ISC"
+}
