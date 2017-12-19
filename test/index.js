@@ -1,19 +1,16 @@
 const Promise = require('../index');
 
-const p = new Promise((resolve, reject) => {
+var p = new Promise((resolve, reject) => {
   setTimeout(() => {
-    console.log('hello promise');
-    resolve('fulfilled');
-    // reject('rejected');
-  }, 100);
+    reject('fn run finished');
+  }, 1000);
 });
-
 p.then((data) => {
-  console.log('success', data);
-}, (error) => {
-  console.log('error', error);
+  console.log('fulfilled: ' + data);
+}, (err) => {
+  console.log('rejected: ' + err);
 }).then((data) => {
-  console.log('success1', data);
-}, (error) => {
-  console.log('error1', error);
+  console.log('fulfilled1: ' + data);
+}, (err) => {
+  console.log('rejected1: ' + err);
 });
