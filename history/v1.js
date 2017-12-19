@@ -10,6 +10,7 @@ var STATUS_REJECTED = 'rejected';
 var status = STATUS_PENDING;
 var successEvents = [];
 var failEvents = [];
+var successData, errorData, finallyRunFunc = function () {};
 
 // 成功处理函数
 function resolve(data) {
@@ -17,10 +18,12 @@ function resolve(data) {
     return;
   }
   status = STATUS_FULFILLED;
+  successData = data;
   var tmpFunc = null;
   while(tmpFunc = successEvents.shift()) {
-    tmpFunc(data);
+    tmpFunc(successData);
   }
+  finallyRunFunc();
 }
 
 // 失败处理函数
@@ -29,10 +32,12 @@ function reject(error) {
     return;
   }
   status = STATUS_REJECTED;
+  errorData = error;
   var tmpFunc = null;
   while(tmpFunc = failEvents.shift()) {
-    tmpFunc(error);
+    tmpFunc(errorData);
   }
+  finallyRunFunc();
 }
 
 // 构造函数
@@ -44,6 +49,7 @@ function Promise(fn) {
   var self = this;
   self.fn = fn;
   self.error = null;
+  self.promise = self;
   fn(resolve, reject);
 }
 
@@ -61,12 +67,22 @@ Promise.prototype.then = function (resolveHandler, rejectHandler) {
   } else {
     // 如果状态已经改变，则直接执行对应的回调处理函数
     if (status === STATUS_FULFILLED) {
-      resolveHandler();
+      resolveHandler(successData);
     }
     if (status === STATUS_REJECTED) {
-      rejectHandler();
+      rejectHandler(errorData);
     }
   }
-  return self;
+  return self.promise;
 };
+
+// finally 总会执行该方法
+Promise.prototype.finally = function (finallyFunc) {
+  var self = this;
+  if (typeof finallyFunc === 'function') {
+    finallyRunFunc = function() {
+      finallyFunc(successData || errorData);
+    }
+  }
+}
 module.exports = Promise;
