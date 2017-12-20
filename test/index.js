@@ -1,17 +1,17 @@
 const Deferred = require('../index');
 
-var deferred3 = new Deferred();
-var p = new deferred3.Promise((resolve, reject) => {
+var deferred3 = (new Deferred()).Promise;
+var p = new deferred3((resolve, reject) => {
   setTimeout(() => {
     resolve('fn run finished');
   }, 1000);
 });
 p.then((data) => {
   console.log('fulfilled: ' + data);
-  var deferred4 = new Deferred();
-  return new deferred4.Promise((resolve, reject) => {
+  var deferred4 = new Deferred().Promise;
+  return new deferred4((resolve, reject) => {
     setTimeout(() => {
-      reject('promise2 and：dataOne = ' + data);
+      resolve('promise2 and：dataOne = ' + data);
     }, 1000);
   });
 }, (err) => {
