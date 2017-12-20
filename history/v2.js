@@ -8,9 +8,9 @@ var STATUS_REJECTED = 'rejected';
 
 // promise 的状态
 var status = STATUS_PENDING;
-var successEvents = [];
-var failEvents = [];
-var successData, errorData, finallyRunFunc = function () {};
+var thenEventsHandler = []; // 保存 then 回调里传递的成功和失败回调处理函数
+var successData, errorData; // 保存当前成功或失败的数据
+var promise; // 用于保存 then 成功回调返回的 promise
 
 // 成功处理函数
 function resolve(data) {
@@ -19,11 +19,13 @@ function resolve(data) {
   }
   status = STATUS_FULFILLED;
   successData = data;
-  var tmpFunc = null;
-  while(tmpFunc = successEvents.shift()) {
-    tmpFunc(successData);
+  var tmpEventItem = null;
+  while(tmpEventItem = thenEventsHandler.shift()) {
+    var tmpResult;
+    if (tmpEventItem.success) {
+      tmpResult = tmpEventItem.success(successData);
+    }
   }
-  finallyRunFunc();
 }
 
 // 失败处理函数
@@ -33,11 +35,12 @@ function reject(error) {
   }
   status = STATUS_REJECTED;
   errorData = error;
-  var tmpFunc = null;
-  while(tmpFunc = failEvents.shift()) {
-    tmpFunc(errorData);
+  var tmpEventItem = null;
+  while(tmpEventItem = thenEventsHandler.shift()) {
+    if (tmpEventItem.error) {
+      tmpEventItem.error(errorData);
+    }
   }
-  finallyRunFunc();
 }
 
 // 构造函数
@@ -47,9 +50,6 @@ function Promise(fn) {
     throw new Error('Param of promise constuctor must be a function');
   }
   var self = this;
-  self.fn = fn;
-  self.error = null;
-  self.promise = self;
   fn(resolve, reject);
 }
 
@@ -58,32 +58,22 @@ Promise.prototype.then = function (resolveHandler, rejectHandler) {
   var self = this;
   if (status === STATUS_PENDING) {
     // 如果状态是 pending 则将回调处理函数入栈
-    if (typeof resolveHandler === 'function') {
-      successEvents.push(resolveHandler);
-    }
-    if (typeof rejectHandler === 'function') {
-      failEvents.push(rejectHandler);
+    if (typeof resolveHandler === 'function' || typeof rejectHandler === 'function') {
+      thenEventsHandler.push({
+        success: typeof resolveHandler === 'function' ? resolveHandler : null,
+        error: typeof rejectHandler === 'function' ? rejectHandler : null,
+      });
     }
   } else {
     // 如果状态已经改变，则直接执行对应的回调处理函数
-    if (status === STATUS_FULFILLED) {
+    if (status === STATUS_FULFILLED && typeof resolveHandler === 'function') {
       resolveHandler(successData);
     }
-    if (status === STATUS_REJECTED) {
+    if (status === STATUS_REJECTED && typeof rejectHandler === 'function') {
       rejectHandler(errorData);
     }
   }
-  return self.promise;
+  return promise || self;
 };
-
-// finally 总会执行该方法
-Promise.prototype.finally = function (finallyFunc) {
-  var self = this;
-  if (typeof finallyFunc === 'function') {
-    finallyRunFunc = function() {
-      finallyFunc(successData || errorData);
-    }
-  }
-}
 
 module.exports = Promise;
