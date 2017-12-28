@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/re.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header>
+        <button class="back">&lt;</button>
+        <h1 class="title">新建会议</h1>
+    </header>
+    <article class="hasFooter">
+        <div class="new">
+            <ul class="newBox">
+                <li>
+                    <input type="text" placeholder="会议名称" id="name">
+                </li>
+                <li>
+                    <textarea name="" id="detail" placeholder="会议详情"></textarea>
+                </li>
+                <li class="inputBox">
+                    <span>附件</span>
+                    <input type="file" id="newsPic">
+                    <input type="button" value="上传" id="upLoadPicBtn">
+                    <img src="" id="uploadImg" alt="">
+                </li>
+            </ul>
+            <!-- <ul class="newBox">
+                <li class="inputBox">
+                    <span>开始时间</span>
+                    <input type="datetime-local" name="" id="start">
+                </li>
+                <li class="inputBox">
+                    <span>结束时间</span>
+                    <input type="datetime-local" name="" id="end">
+                </li>
+                <li class="chooseBox">
+                    <span>会议地点</span>
+                    <span class="val" id="room">请选择</span>
+                    <span class="btn">&gt;</span>
+                    <ul></ul>
+                </li>
+            </ul> -->
+            <ul class="newBox">
+                <li class="inputBox">
+                    <span>选择日期</span>
+                    <input type="date" name="" id="start"> 
+                </li>
+            </ul>
+            <div id="show_time">
+            </div>
+            <div class="" id="time_choose">
+                <ul class="list1">
+                    <li>
+                        <ul class="list2">
+                            <li class="special">时间</li>
+                            <!-- <li>00</li>
+                            <li>01</li>
+                            <li>02</li>
+                            <li>03</li>
+                            <li>04</li>
+                            <li>05</li>
+                            <li>06</li>
+                            <li>07</li> -->
+                            <li>08</li>
+                            <li>09</li>
+                            <li>10</li>
+                            <li>11</li>
+                            <li>12</li>
+                            <li>13</li>
+                            <li>14</li>
+                            <li>15</li>
+                            <li>16</li>
+                            <li>17</li>
+                            <li>18</li>
+                            <!-- <li>19</li>
+                            <li>20</li>
+                            <li>21</li>
+                            <li>22</li>
+                            <li>23</li> -->
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="list2">
+                            <li  class="special">整点<br/>半点</li>
+                            <li>
+                                <input type="checkbox" name="08" value="08:00:00">
+                                <input type="checkbox" name="08" value="08:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="09" value="09:00:00">
+                                <input type="checkbox" name="09" value="09:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="10" value="08:00:00">
+                                <input type="checkbox" name="10" value="08:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="11" value="09:00:00">
+                                <input type="checkbox" name="11" value="09:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="12" value="08:00:00">
+                                <input type="checkbox" name="12" value="08:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="13" value="09:00:00">
+                                <input type="checkbox" name="13" value="09:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="14" value="08:00:00">
+                                <input type="checkbox" name="14" value="08:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="15" value="09:00:00">
+                                <input type="checkbox" name="15" value="09:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="16" value="08:00:00">
+                                <input type="checkbox" name="16" value="08:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="17" value="09:00:00">
+                                <input type="checkbox" name="17" value="09:30:00">
+                            </li>
+                            <li>
+                                <input type="checkbox" name="18" value="08:00:00">
+                                <input type="checkbox" name="18" value="08:30:00">
+                            </li>
+                        </ul> 
+                    </li>
+                </ul>
+                <!-- <tr>
+                    <td>00:00</td><td>01:00</td>
+                    <td>02:00</td><td>03:00</td>
+                    <td>04:00</td><td>05:00</td>
+                    <td>06:00</td><td>07:00</td>
+                    <td>08:00</td><td>09:00</td>
+                    <td>10:00</td><td>11:00</td>
+                    <td>12:00</td><td>13:00</td>
+                    <td>14:00</td><td>15:00</td>
+                    <td>16:00</td><td>17:00</td>
+                    <td>18:00</td><td>19:00</td>
+                    <td>20:00</td><td>21:00</td>
+                    <td>22:00</td><td>23:00</td>
+                </tr>
+                <tr>
+                    <td>00:30</td><td>01:30</td>
+                    <td>02:30</td><td>03:30</td>
+                    <td>04:30</td><td>05:30</td>
+                    <td>06:30</td><td>07:30</td>
+                    <td>08:30</td><td>09:30</td>
+                    <td>10:30</td><td>11:30</td>
+                    <td>12:30</td><td>13:30</td>
+                    <td>14:30</td><td>15:30</td>
+                    <td>16:30</td><td>17:30</td>
+                    <td>18:30</td><td>19:30</td>
+                    <td>20:30</td><td>21:30</td>
+                    <td>22:30</td><td>23:30</td>
+                </tr> -->
+            </div>
+            
+            <!-- <div class="time_choose">
+                <span>08:00</span>
+                <span>08:30</span>
+                <span>09:00</span>
+                <span>09:30</span>
+                <span>10:00</span>
+                <span>10:30</span>
+                <span>11:00</span>
+                <span>11:30</span>
+                <span>12:00</span>
+                <span>12:30</span>
+                <span>13:00</span>
+                <span>13:30</span>
+                <span>14:00</span>
+                <span>14:30</span>
+                <span>15:00</span>
+                <span>15:30</span>
+                <span>16:00</span>
+                <span>16:30</span>
+                <span>17:00</span>
+                <span>17:30</span>
+                <span>18:00</span>
+            </div> -->
+            <ul class="newBox">
+                <li class="chooseBox">
+                    <span>发起人</span>
+                    <span class="val" id="sponsor">请选择</span>
+                    <span class="btn">&gt;</span>
+                    <ul></ul>
+                </li>
+                <li class="chooseList">
+                    <span>参会人</span>
+                    <span class="val">请选择</span>
+                    <span class="btn">&gt;</span>
+                    <ul id="join"></ul>
+                </li>
+            </ul>
+            <ul class="newBox">
+                <li class="selectBox">
+                    <span>可查看会议纪要</span>
+                    <div class="choose">
+                        <div class="" id="canRead">
+                            <span></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="selectBox">
+                    <span>阅读会议即为确认参加</span>
+                    <div class="choose">
+                        <div class="" id="autoJoin">
+                            <span></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </article>
+    <footer>
+        <div class="flexBox">
+            <span class="back">返回</span>
+            <span class="success" id="save">保存</span>
+        </div>
+    </footer>
+
+    <div id="errMes"></div>
+
+    <script src="js/tools.js"></script>
+    <script src="js/err.js"></script>
+    <script src="js/ajaxFunc.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pageLoad/newMeeting.js"></script>
+</body>
+</html>
